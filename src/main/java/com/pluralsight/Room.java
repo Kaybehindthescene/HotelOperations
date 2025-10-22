@@ -50,6 +50,41 @@ public class Room {
             return true;
         }
 
-        return false;
+        return !this.isDirty() && !this.isOccupied();
+    }
+
+    public boolean checkIn(){
+        if (isAvailable()){
+            isOccupied = true;
+            isDirty = true;
+            System.out.println("Guest checked in the room");
+            return true;
+        }else {
+            System.out.println("Room is not available for check in");
+            return false;
+        }
+    }
+
+    public boolean checkOut(){
+        if (isOccupied){
+            isOccupied = false;
+            isDirty = true;
+            System.out.println("Guest checked out of room. Room is dirty");
+            return true;
+        }else {
+            System.out.println("Room is dirty already.");
+            return false;
+        }
+    }
+
+    public boolean cleanRoom() {
+        if (!isOccupied && isDirty) {
+            isDirty = false;
+            System.out.println("Room has been cleaned and is ready for the next guest.");
+            return true;
+        } else {
+            System.out.println("Cannot clean: either occupied or already clean.");
+            return false;
+        }
     }
 }
